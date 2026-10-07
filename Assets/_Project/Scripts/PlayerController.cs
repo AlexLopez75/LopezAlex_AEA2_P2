@@ -19,19 +19,23 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.ISpaceShipAct
     private void Awake()
     {
         mainCamera = Camera.main;
+		// TODO: Crea el new inputActions
+        inputActions = new InputSystem_Actions();
 
-        // TODO: Crea el new inputActions
         // TODO: Fes que els Callbacks avisin aquest script
-    }
+        inputActions.SpaceShip.SetCallbacks(this);
+	}
 
-    private void OnEnable()
+	private void OnEnable()
     {
         // TODO: Activa (Enable) l'inputActions
+        inputActions.Enable();
     }
 
     private void OnDisable()
     {
         // TODO: Desactiva (Disable) l'inputActions
+        inputActions.Disable();
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -49,10 +53,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.ISpaceShipAct
     public void OnFire(InputAction.CallbackContext context)
     {
         // TODO: si no és "performed" no facis res (if (!context.performed) return;)
+        if (!context.performed) return;
 
         // TODO: si és GameOver no facis res GameManager.Instance.IsGameOver (return).
+        if (GameManager.Instance.IsGameOver) return;
 
         // TODO: Dispara.
         //       BulletPool.Instance.GetBullet(firePoint.position, transform.rotation);
+        BulletPool.Instance.GetBullet(firePoint.position, transform.rotation);
     }
 }
