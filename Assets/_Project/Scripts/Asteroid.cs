@@ -24,6 +24,7 @@ public class Asteroid : MonoBehaviour
     // Cridem aquest mètode cada vegada que un Asteroid surt de la pool.
     public void Init(AsteroidData newData, Vector2 direction)
     {
+        // Nota: Ens assegurem que les referències estiguin obtingudes si Awake() encara no s'ha executat
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
 
