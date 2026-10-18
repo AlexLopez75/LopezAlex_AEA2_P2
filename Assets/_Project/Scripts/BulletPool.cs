@@ -21,7 +21,6 @@ public class BulletPool : MonoBehaviour
 			return;
 		}
         Instance = this;
-        DontDestroyOnLoad(Instance);
 
         // TODO: Inicialitza aquí la Pool amb base que es farà servir.
         for (int i = 0; i < initialSize; i++)

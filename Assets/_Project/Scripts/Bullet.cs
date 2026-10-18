@@ -18,6 +18,8 @@ public class Bullet : MonoBehaviour
 
     public void Init()
     {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+
         // TODO: fem reset al lifeTimer.
         lifeTimer = lifeTime;
         // TODO: fem que la bullet es mogui cap al seu Forward.
@@ -38,8 +40,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Asteroid asteroid = GetComponent<Asteroid>();
-
         // TODO:
         //   si la bullet ja està inactiva no facis res (if (!gameObject.activeSelf) return;)
         //   això evitarà que es retorni la mateixa bullet si aquesta impacta 2 Asteroides en el mateix frame.
@@ -47,13 +47,11 @@ public class Bullet : MonoBehaviour
 
         //   comprova si 'other' és un Ateroid i quedat amb el component (GetComponent<Asteroid>()).
         //   si no és null TakeDamage(damage) i retorna la bullet a la seva pool (asteroid != null).
-        if (other.CompareTag("Asteroid"))
+        Asteroid asteroid = other.GetComponent<Asteroid>();
+        if (asteroid != null)
         {
-            if (asteroid != null)
-            {
-                asteroid.TakeDamage(damage);
-                BulletPool.Instance.ReturnBullet(this);
-            }
+            asteroid.TakeDamage(damage);
+            BulletPool.Instance.ReturnBullet(this);
         }
     }
 }

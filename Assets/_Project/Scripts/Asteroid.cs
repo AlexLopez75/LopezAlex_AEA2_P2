@@ -24,6 +24,9 @@ public class Asteroid : MonoBehaviour
     // Cridem aquest mètode cada vegada que un Asteroid surt de la pool.
     public void Init(AsteroidData newData, Vector2 direction)
     {
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+
         data = newData;
 
         // TODO: passa els valorsdel ScriptableObject a Variables locals
@@ -60,7 +63,7 @@ public class Asteroid : MonoBehaviour
         // Sumem els punt al Player
         // Cridem al GameManger i el seu mètode per sumar scoreValue
         // Retornem l'asteroid a la seva pool
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             GameManager.Instance.AddScore(data.points);
             AsteroidPool.Instance.ReturnAsteroid(this);

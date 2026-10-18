@@ -22,7 +22,6 @@ public class AsteroidPool : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(Instance);
 
         // TODO:Inicialitza aquí la Pool amb base que es farà servir. 
         for (int i = 0; i < initialSize; i++)
@@ -61,7 +60,7 @@ public class AsteroidPool : MonoBehaviour
 		asteroid.transform.position = position;
 		asteroid.gameObject.SetActive(true);
 
-		return asteroidPrefab;
+		return asteroid;
     }
 
     public void ReturnAsteroid(Asteroid asteroid)

@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(Instance);
     }
 
     private void Start()
@@ -50,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         // TODO: afegeix punts a la UI i actualitza-la.
         score += points;
-        scoreText.text = scoreText.text + " " + score;
+        UpdateUI();
     }
 
     // Cridat pel Ateroid quan impacta amb el player.
@@ -58,9 +57,9 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Resta amount a lives i actualitza la UI.
         lives -= amount;
-        livesText.text = amount.ToString();
+        UpdateUI();
         //       si lives < 0 GameOver().
-        if (lives < 0) 
+        if (lives <= 0) 
         { 
             GameOver(); 
         }
