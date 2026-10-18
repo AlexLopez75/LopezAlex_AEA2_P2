@@ -40,12 +40,11 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.ISpaceShipAct
 
     public void OnAim(InputAction.CallbackContext context)
     {
-        if (!context.performed|| GameManager.Instance.IsGameOver)
-        {
-            return;
-        }
+        if (!context.performed) return;
+        if (GameManager.Instance.IsGameOver) return;
+
         // TODO: aimScreenPosition = context;
-        aimScreenPosition = new Vector2 (1f, 1f);
+        aimScreenPosition = context.ReadValue<Vector2>();
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(aimScreenPosition);
         Vector2 direction = mouseWorldPosition - transform.position;
         transform.up = direction;
@@ -60,6 +59,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.ISpaceShipAct
 
         // TODO: Dispara.
         //       BulletPool.Instance.GetBullet(firePoint.position, transform.rotation);
-        BulletPool.Instance.GetBullet(firePoint.position, transform.rotation);
+        Bullet bullet = BulletPool.Instance.GetBullet(firePoint.position, transform.rotation);
+        Debug.Log(bullet);
     }
 }

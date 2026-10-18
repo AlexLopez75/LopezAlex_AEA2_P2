@@ -15,15 +15,21 @@ public class BulletPool : MonoBehaviour
 		// TODO:
 		//   Singleton.
 		//   Fer les comprovacions necessàries perquè només hi hagi una instància d'aquest singleton
-		if (Instance == null && Instance != this)
+		if (Instance != null && Instance != this)
 		{
 			Destroy(this);
 			return;
 		}
-		
+        Instance = this;
+        DontDestroyOnLoad(Instance);
+
         // TODO: Inicialitza aquí la Pool amb base que es farà servir.
-        pool = new Stack<Bullet>();
-	}
+        for (int i = 0; i < initialSize; i++)
+        {
+            pool.Push(CreateBullet());
+        }
+
+    }
 
     private Bullet CreateBullet()
     {
@@ -41,7 +47,7 @@ public class BulletPool : MonoBehaviour
         Bullet bullet;
         // TODO:
         //     si l'stack té elements (pool.Count>0), treu una amb Pop().
-        if (pool.Count < 0)
+        if (pool.Count > 0)
         {
             bullet = pool.Pop();
         }
